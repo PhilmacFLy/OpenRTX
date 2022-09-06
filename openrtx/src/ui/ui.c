@@ -881,7 +881,7 @@ static void _ui_fsm_menuMacro(kbd_msg_t msg, bool *sync_rtx)
                                  state.channel.fm.rxTone,
                                  state.channel.fm.txToneEn,
                                  state.channel.fm.txTone,
-                                 queueFlags);
+                                 queueFlags |vpqIncludeDescriptions);
             }
             break;
 
