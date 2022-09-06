@@ -1288,26 +1288,15 @@ void ui_updateFSM(bool *sync_rtx)
                     }
                     else if(msg.keys & KEY_F1)
                     {
-				    	if (state.settings.vpLevel > vpBeep)
-				    	{// quick press repeat vp, long press summary.
-				    		if (msg.long_press)
-				    			vp_announceChannelSummary(&state.channel, 0, state.bank);
-				    		else
-				    			vp_replayLastPrompt();
-				    		f1Handled = true;
-				    	}
-                    }
-                    else if(msg.keys & KEY_F1)
-                    {
                         if (state.settings.vpLevel > vpBeep)
                         {// quick press repeat vp, long press summary.
                             if (msg.long_press)
                                 vp_announceChannelSummary(&state.channel, 0,
-                                                          state.bank);
+                                                          state.bank, vpAllInfoExceptSplash);
                             else
                                 vp_replayLastPrompt();
-                            f1Handled = true;
-                        }
+				    		f1Handled = true;
+				    	}
                     }
                     else if(input_isNumberPressed(msg))
                     {
@@ -1391,9 +1380,11 @@ void ui_updateFSM(bool *sync_rtx)
                                 // Quick press repeat vp, long press summary.
                                 if (msg.long_press)
                                 {
-                                    vp_announceChannelSummary(&state.channel,
-                                                              state.channel_index,
-                                                              state.bank);
+                                    vp_announceChannelSummary(
+                                            &state.channel,
+                                            state.channel_index,
+                                            state.bank,
+                                            vpAllInfoExceptSplash);
                                 }
                                 else
                                 {
@@ -1444,7 +1435,7 @@ void ui_updateFSM(bool *sync_rtx)
                             {
                                 vp_announceChannelSummary(&state.channel,
                                                           state.channel_index+1,
-                                                          state.bank);
+                                                          state.bank, vpAllInfoExceptSplash);
                             }
                             else
                             {
