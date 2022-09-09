@@ -30,10 +30,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifndef min
-#define min(a,b)            (((a) < (b)) ? (a) : (b))
-#endif
-
 static const uint32_t VOICE_PROMPTS_DATA_MAGIC   = 0x5056;  //'VP'
 static const uint32_t VOICE_PROMPTS_DATA_VERSION = 0x1000;  // v1000 OpenRTX
 static uint16_t currentBeepDuration=0;
@@ -165,14 +161,14 @@ static void fetchCodec2Data(uint8_t *data, const size_t offset)
                      + sizeof(vpHeader_t)
                      + sizeof(tableOfContents)
                      + CODEC2_HEADER_SIZE;
-                     
-    uint16_t bytesToCopy = min(8, (&_vpdata_end-dataPtr));
 
-    memcpy(data, dataPtr + offset, bytesToCopy);
-    
-    if (bytesToCopy < 8)
-            memset(data+bytesToCopy, 0x00, 8-bytesToCopy);
+    if((dataPtr + 8) >= &_vpdata_end)
+    {
+        memset(data, 0x00, 8);
+        return;
+    }
 
+    memcpy(data, dataPtr + offset, 8);
     #endif
 }
 
