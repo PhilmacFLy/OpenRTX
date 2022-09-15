@@ -1129,7 +1129,7 @@ void ui_saveState()
 #ifdef GPS_PRESENT
 static float priorGPSSpeed = 0;
 static float priorGPSAltitude = 0;
-static float  priorGPSDirection = 0;
+static float  priorGPSDirection = 500; // impossible value init.
 static uint32_t vpGPSLastUpdate = 0;
 
 static vpGPSInfoFlags_t GetGPSDirectionOrSpeedChanged()
@@ -1142,8 +1142,6 @@ static vpGPSInfoFlags_t GetGPSDirectionOrSpeedChanged()
     uint32_t now = getTick();
     if (now - vpGPSLastUpdate < 10000)
         return vpGPSNone;
-    
-    vpGPSLastUpdate=now;
     
     vpGPSInfoFlags_t whatChanged=  vpGPSNone;
     
@@ -1179,6 +1177,9 @@ static vpGPSInfoFlags_t GetGPSDirectionOrSpeedChanged()
         whatChanged |= vpGPSDirection;
         priorGPSDirection = state.gps_data.tmg_true;
     }
+    
+    if (whatChanged)
+        vpGPSLastUpdate=now;
     
     return whatChanged;
 }
