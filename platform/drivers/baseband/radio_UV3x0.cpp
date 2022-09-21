@@ -141,6 +141,18 @@ bool radio_checkRxDigitalSquelch()
     return at1846s.rxCtcssDetected();
 }
 
+void radio_enableAfOutput()
+{
+    // Bit 2 of register 0x36: enable voice channel in FM mode
+    // TODO: AF output management for DMR mode
+    C6000.writeCfgRegister(0x36, 0x02);
+}
+
+void radio_disableAfOutput()
+{
+    C6000.writeCfgRegister(0x36, 0x00);
+}
+
 void radio_enableRx()
 {
     gpio_clearPin(PA_EN_1);

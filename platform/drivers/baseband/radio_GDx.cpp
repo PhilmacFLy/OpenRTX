@@ -132,6 +132,17 @@ bool radio_checkRxDigitalSquelch()
     return at1846s.rxCtcssDetected();
 }
 
+void radio_enableAfOutput()
+{
+    // TODO: AF output management for DMR mode
+    at1846s.unmuteRxOutput();
+}
+
+void radio_disableAfOutput()
+{
+    at1846s.muteRxOutput();
+}
+
 void radio_enableRx()
 {
     gpio_clearPin(VHF_LNA_EN);
