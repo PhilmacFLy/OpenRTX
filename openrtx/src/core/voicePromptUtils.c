@@ -519,7 +519,7 @@ void vp_announceM17Info(const channel_t* channel, bool isEditing, const vpQueueF
     {
         vp_queueString(state.m17_data.dst_addr, vpAnnounceCommonSymbols);
     }
-    else if (! channel && channel->m17.contact_index != 0)
+    else if ((channel != NULL) && (channel->m17.contact_index != 0))
     {
         vp_announceContactWithIndex(channel->m17.contact_index, flags);
     }
