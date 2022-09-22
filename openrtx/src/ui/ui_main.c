@@ -132,7 +132,7 @@ void _ui_drawModeInfo(ui_state_t* ui_state)
                 dst = ui_state->new_callsign;
             else
                 dst = (!strnlen(cfg.destination_address, 10)) ?
-                    "Broadcast" : cfg.destination_address;
+                    currentLanguage->broadcast : cfg.destination_address;
             gfx_print(layout.line2_pos, layout.line2_font, TEXT_ALIGN_CENTER,
                   color_white, "#%s", dst);
             break;
